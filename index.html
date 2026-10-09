@@ -1,288 +1,847 @@
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ROLLEX GAMING TOPUP </title>
+<title>VEXORA+ | Video Hub</title>
 
 <style>
-
-/* ===== Animated 3 Color Background ===== */
-body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    color:white;
-    text-align:center;
-    background: linear-gradient(-45deg,#0f2027,#00f2ff,#8e2de2);
-    background-size:400% 400%;
-    animation:gradientBG 8s ease infinite;
-    overflow-x:hidden;
+:root {
+  --bg: #090909;
+  --card: #171717;
+  --orange: #ff6a00;
+  --text: #f7f7f7;
+  --muted: #a3a3a3;
+  --border: #292929;
 }
 
-@keyframes gradientBG{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* Floating Glow Circles */
-body::before, body::after{
-    content:"";
-    position:fixed;
-    width:300px;
-    height:300px;
-    background:rgba(0,255,255,0.2);
-    border-radius:50%;
-    filter:blur(100px);
-    animation:float 10s infinite alternate;
-    z-index:-1;
-}
-body::after{
-    right:0;
-    bottom:0;
-    background:rgba(142,45,226,0.3);
-    animation-delay:5s;
+body {
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
-@keyframes float{
-    from{transform:translateY(-50px);}
-    to{transform:translateY(50px);}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(9,9,9,.96);
+  border-bottom: 1px solid var(--border);
+  padding: 15px 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
-header{
-    padding:20px;
-    font-size:28px;
-    font-weight:bold;
-    letter-spacing:2px;
-    background:rgba(0,0,0,0.4);
-    box-shadow:0 0 20px cyan;
-    animation:fadeIn 1.5s ease;
+.logo {
+  color: var(--orange);
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
-.container{
-    padding:20px;
-    animation:fadeIn 1.5s ease;
+.logo span {
+  color: white;
 }
 
-/* Card Animation */
-.card{
-    background:rgba(255,255,255,0.1);
-    backdrop-filter:blur(15px);
-    padding:25px;
-    margin:20px auto;
-    width:300px;
-    border-radius:20px;
-    box-shadow:0 0 25px cyan;
-    cursor:pointer;
-    transition:0.4s;
-    animation:floatCard 3s ease-in-out infinite;
+.header-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-@keyframes floatCard{
-    0%{transform:translateY(0px);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0px);}
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 15px;
+  font-weight: bold;
+  transition: .2s;
 }
 
-.card:hover{
-    transform:scale(1.08);
-    box-shadow:0 0 40px #00f2ff;
+button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
 }
 
-select,input{
-    width:90%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:12px;
-    border:none;
-    outline:none;
-    font-size:14px;
+.primary {
+  background: var(--orange);
+  color: white;
 }
 
-/* Button Glow Animation */
-button{
-    padding:12px 25px;
-    border:none;
-    border-radius:25px;
-    background:linear-gradient(45deg,#00f2ff,#8e2de2);
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-    animation:pulse 2s infinite;
+.secondary {
+  background: #242424;
+  color: white;
+  border: 1px solid #383838;
 }
 
-@keyframes pulse{
-    0%{box-shadow:0 0 10px cyan;}
-    50%{box-shadow:0 0 25px #8e2de2;}
-    100%{box-shadow:0 0 10px cyan;}
+main {
+  width: 90%;
+  max-width: 1400px;
+  margin: 28px auto;
 }
 
-button:hover{
-    transform:scale(1.1);
+.hero {
+  padding: 35px;
+  background: linear-gradient(120deg, #281204, #171717 65%);
+  border: 1px solid #49230d;
+  border-radius: 18px;
+  margin-bottom: 28px;
 }
 
-.hidden{
-    display:none;
+.hero h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  margin-bottom: 12px;
 }
 
-/* Loader */
-.loader{
-    border:6px solid rgba(255,255,255,0.3);
-    border-top:6px solid cyan;
-    border-radius:50%;
-    width:50px;
-    height:50px;
-    animation:spin 1s linear infinite;
-    margin:30px auto;
+.hero h1 span {
+  color: var(--orange);
 }
 
-@keyframes spin{
-    0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
+.hero p {
+  color: #d0d0d0;
+  line-height: 1.6;
+  max-width: 650px;
 }
 
-.price{
-    font-size:22px;
-    margin:15px;
-    font-family: fantasy;
-    color:#000000;
-    font-weight: 900;
-    text-shadow:0 0 11px cyan;
+.toolbar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 22px 0;
 }
 
-@keyframes fadeIn{
-    from{opacity:0; transform:translateY(20px);}
-    to{opacity:1; transform:translateY(0);}
+input, select {
+  background: #171717;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 13px;
+  color: white;
+  outline: none;
+  min-width: 0;
 }
 
+input:focus, select:focus {
+  border-color: var(--orange);
+}
+
+#searchInput {
+  flex: 1;
+  min-width: 180px;
+}
+
+.section-title {
+  font-size: 22px;
+  margin: 25px 0 16px;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.video-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: .2s;
+}
+
+.video-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-3px);
+}
+
+.thumbnail {
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #301606, #171717);
+  color: var(--orange);
+  font-size: 42px;
+  font-weight: 900;
+  overflow: hidden;
+}
+
+.thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-details {
+  padding: 14px;
+}
+
+.video-details h3 {
+  font-size: 16px;
+  overflow-wrap: anywhere;
+  margin-bottom: 8px;
+}
+
+.video-details p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 13px;
+}
+
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.card-actions button {
+  flex: 1;
+  padding: 10px 8px;
+}
+
+.empty {
+  text-align: center;
+  padding: 45px 10px;
+  color: var(--muted);
+  grid-column: 1 / -1;
+  background: #131313;
+  border-radius: 12px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  padding: 35px 15px;
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0,0,0,.88);
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  background: #141414;
+  border: 1px solid #333;
+  border-radius: 14px;
+  padding: 22px;
+  width: 100%;
+  max-width: 650px;
+  max-height: 92vh;
+  overflow-y: auto;
+}
+
+.modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-top h2 {
+  font-size: 21px;
+}
+
+.close {
+  background: #292929;
+  color: white;
+  font-size: 20px;
+  padding: 6px 12px;
+}
+
+.form-field {
+  margin-bottom: 15px;
+}
+
+.form-field label {
+  display: block;
+  margin-bottom: 7px;
+  color: #ddd;
+  font-size: 14px;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+}
+
+.note {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+
+.player-box {
+  max-width: 1000px;
+  width: 100%;
+}
+
+#playerContent {
+  width: 100%;
+  min-height: 200px;
+  background: #000;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#playerContent iframe,
+#playerContent video {
+  display: block;
+  width: 100%;
+  height: min(65vh, 560px);
+  border: 0;
+  background: black;
+}
+
+.player-message {
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  text-align: center;
+  padding: 25px;
+}
+
+.status {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 12px;
+  overflow-wrap: anywhere;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 13px 5%;
+  }
+
+  .logo {
+    font-size: 23px;
+  }
+
+  main {
+    width: 92%;
+    margin-top: 18px;
+  }
+
+  .hero {
+    padding: 23px;
+  }
+
+  .video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .thumbnail {
+    height: 110px;
+  }
+
+  .video-details {
+    padding: 10px;
+  }
+
+  .video-details h3 {
+    font-size: 14px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .card-actions button {
+    width: 100%;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<header>⚡ ROLLEX GAMING TOPUP ⚡</header>
+<header>
+  <div class="logo">VEXORA<span>+</span></div>
 
-<div class="container" id="home">
+  <div class="header-actions">
+    <button class="secondary" id="loginBtn">Google Login</button>
+    <button class="secondary hidden" id="logoutBtn">Logout</button>
+    <button class="primary" id="addVideoBtn">+ Add Video</button>
+  </div>
+</header>
 
-<h2>Select Your Game 🎮</h2>
+<main>
+  <section class="hero">
+    <h1>Watch Your <span>Videos.</span></h1>
+    <p>
+      Welcome to VEXORA+ — add video links, organize your collection,
+      search videos, and watch supported videos from one place.
+    </p>
+  </section>
 
-<div class="card" onclick="loadGame('Free Fire')">
-🔥 Free Fire 💎
+  <div class="toolbar">
+    <input id="searchInput" type="search" placeholder="Search videos...">
+    <select id="categoryFilter">
+      <option value="all">All Categories</option>
+      <option value="Entertainment">Entertainment</option>
+      <option value="Music">Music</option>
+      <option value="Education">Education</option>
+      <option value="Other">Other</option>
+    </select>
+  </div>
+
+  <h2 class="section-title">Your Video Collection</h2>
+  <section class="video-grid" id="videoGrid"></section>
+  <p class="status" id="loginStatus">You are browsing as a guest.</p>
+</main>
+
+<footer>
+  <div class="logo">VEXORA<span>+</span></div>
+  <p style="margin-top:10px">Your personal video link hub.</p>
+  <p style="margin-top:8px">Only add videos you have permission to access and share.</p>
+</footer>
+
+<!-- Add video modal -->
+<div class="modal" id="addModal">
+  <div class="modal-box">
+    <div class="modal-top">
+      <h2>Add a Video</h2>
+      <button class="close" data-close="addModal">×</button>
+    </div>
+
+    <form id="videoForm">
+      <div class="form-field">
+        <label for="videoTitle">Video title</label>
+        <input id="videoTitle" maxlength="120" placeholder="Enter video title" required>
+      </div>
+
+      <div class="form-field">
+        <label for="videoUrl">Video URL</label>
+        <input id="videoUrl" type="url" placeholder="https://..." required>
+        <p class="note">
+          YouTube links, direct MP4 links, and provider-supported embed URLs
+          may play inside the website. Ordinary Pornhub page links open in a new tab.
+        </p>
+      </div>
+
+      <div class="form-field">
+        <label for="videoCategory">Category</label>
+        <select id="videoCategory">
+          <option>Entertainment</option>
+          <option>Music</option>
+          <option>Education</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="videoThumbnail">Thumbnail image URL (optional)</label>
+        <input id="videoThumbnail" type="url" placeholder="https://example.com/image.jpg">
+      </div>
+
+      <button class="primary" type="submit" style="width:100%">Save Video</button>
+    </form>
+  </div>
 </div>
 
-<div class="card" onclick="loadGame('PUBG')">
-🎯 PUBG UC
+<!-- Player modal -->
+<div class="modal" id="playerModal">
+  <div class="modal-box player-box">
+    <div class="modal-top">
+      <h2 id="playerTitle">Video Player</h2>
+      <button class="close" data-close="playerModal">×</button>
+    </div>
+    <div id="playerContent"></div>
+    <p class="note" id="playerNote"></p>
+  </div>
 </div>
 
-</div>
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-<div class="container hidden" id="gamePage">
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-<div class="loader" id="loader"></div>
+/*
+  Replace these values with your own Firebase project configuration
+  if they differ from the project you are using.
+*/
+const firebaseConfig = {
+  apiKey: "AIzaSyAxWxPcWgNQ0MKjhRlkGZ6W7-tD9gnwyBM",
+  authDomain: "idtopup-a7e95.firebaseapp.com",
+  databaseURL: "https://idtopup-a7e95-default-rtdb.firebaseio.com",
+  projectId: "idtopup-a7e95",
+  storageBucket: "idtopup-a7e95.firebasestorage.app",
+  messagingSenderId: "605637576229",
+  appId: "1:605637576229:web:c4e4e7ce749dbef36221cc",
+  measurementId: "G-0LPPDKVQM6"
+};
 
-<div id="content" class="hidden">
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-<h2 id="gameTitle"></h2>
+const $ = (id) => document.getElementById(id);
 
-<input type="text" id="playerId" placeholder="Enter Player ID">
+let currentUser = null;
+let videos = loadVideos();
 
-<select id="server">
-<option value="">Select Server</option>
-<option value="singapore">singapore</option>
-<option value="Asia">Asia</option>
-<option value="Europe">Europe</option>
-<option value="Middle East">Middle East</option>
-</select>
-
-<select id="diamond" onchange="updatePrice()">
-<option value="">Select Amount 💎</option>
-<option value="Weekly lite 90 💎" data-price="130">Weekly lite 90 💎</option>
-<option value="Weekly 490 💎" data-price="520">Weekly 490 💎</option>
-<option value="Monthly 2500 💎" data-price="2600">Monthly 2500 💎</option>
-
-<option value="Level   6=  💎120" data-price="120">Level   6=  💎120
-</option>
-<option value="Level 10=  💎215" data-price="220">Level 10=  💎215</option>
-
-<option value="️Level 15=   💎215" data-price="220">️Level 15=   💎215</option>
-
-<option value="️Level 20=  💎215" data-price="220">️Level 20=   💎215</option>
-
-<option value="Level 25=  💎215" data-price="220">Level 25=   💎215</option>
-<option value="️Level 30=  💎375" data-price="400">️Level 30=  💎375</option>
-<option value="Full level up pack= 💎1355" data-price="1400">Full level up pack= 💎1355</option>
-<option value="25" data-price="90">25 💎</option>
-<option value="100" data-price="300">100 💎</option>
-<option value="310" data-price="900">310 💎</option>
-<option value="520" data-price="1,500">520 💎</option>
-<option value="1060" data-price="2,950">1060 💎</option>
-<option value="2180" data-price="5,900">2180 💎</option>
-</select>
-
-<div class="price" id="priceDisplay">Price: Rs 0</div>
-
-<button onclick="sendOrder()">Order Now 💎</button>
-
-<br><br>
-<button onclick="goHome()">⬅ Back</button>
-
-</div>
-
-</div>
-
-<script>
-
-let selectedGame="";
-
-function loadGame(game){
-    selectedGame=game;
-    document.getElementById("home").classList.add("hidden");
-    document.getElementById("gamePage").classList.remove("hidden");
-    document.getElementById("gameTitle").innerText=game+" Topup 💎";
-    document.getElementById("loader").style.display="block";
-    document.getElementById("content").classList.add("hidden");
-
-    setTimeout(()=>{
-        document.getElementById("loader").style.display="none";
-        document.getElementById("content").classList.remove("hidden");
-    },1200);
+function loadVideos() {
+  try {
+    const stored = JSON.parse(localStorage.getItem("vexora_videos") || "[]");
+    return Array.isArray(stored) ? stored : [];
+  } catch {
+    return [];
+  }
 }
 
-function goHome(){
-    document.getElementById("gamePage").classList.add("hidden");
-    document.getElementById("home").classList.remove("hidden");
+function saveVideos() {
+  localStorage.setItem("vexora_videos", JSON.stringify(videos));
 }
-function updatePrice(){
-    let select=document.getElementById("diamond");
-    let price=select.options[select.selectedIndex].getAttribute("data-price");
-    if(price){
-        document.getElementById("priceDisplay").innerText="Price: Rs "+price;
-    }else{
-        document.getElementById("priceDisplay").innerText="Price: Rs 0";
+
+function safeUrl(value) {
+  try {
+    const url = new URL(value.trim());
+    if (url.protocol !== "https:" && url.protocol !== "http:") return null;
+    return url;
+  } catch {
+    return null;
+  }
+}
+
+/*
+  Supported link handling:
+  - YouTube watch/short links: convert to YouTube embed
+  - Direct MP4/WebM/OGG: play with HTML video
+  - Official embed URLs: embed inside the player
+  - Ordinary Pornhub page URLs: open externally in a new tab
+*/
+function videoInfo(rawUrl) {
+  const url = safeUrl(rawUrl);
+  if (!url) return null;
+
+  const host = url.hostname.toLowerCase().replace(/^www\./, "");
+
+  if (host === "youtu.be") {
+    const id = url.pathname.split("/").filter(Boolean)[0];
+    if (id && /^[\w-]+$/.test(id)) {
+      return {
+        type: "embed",
+        embed: "https://www.youtube-nocookie.com/embed/" + id
+      };
     }
-}
+  }
 
-function sendOrder(){
-    let playerId=document.getElementById("playerId").value;
-    let server=document.getElementById("server").value;
-    let diamond=document.getElementById("diamond").value;
-    let price=document.getElementById("diamond").options[document.getElementById("diamond").selectedIndex].getAttribute("data-price");
+  if (host === "youtube.com" || host === "m.youtube.com") {
+    let id = url.searchParams.get("v");
 
-    if(!playerId || !server || !diamond){
-        alert("Please fill all details!");
-        return;
+    if (!id && url.pathname.startsWith("/embed/")) {
+      id = url.pathname.split("/")[2];
     }
 
-    let message="🎮 Game: "+selectedGame+
-    "%0A💎 Diamonds: "+diamond+
-    "%0A💰 Price: Rs "+price+
-    "%0A🆔 Player ID: "+playerId+
-    "%0A🌍 Server: "+server;
+    if (!id && url.pathname.startsWith("/shorts/")) {
+      id = url.pathname.split("/")[2];
+    }
 
-    window.open("https://wa.me/94741962754?text="+message,"_blank");
+    if (id && /^[\w-]+$/.test(id)) {
+      return {
+        type: "embed",
+        embed: "https://www.youtube-nocookie.com/embed/" + id
+      };
+    }
+  }
+
+  if (host === "pornhub.com" || host === "pornhub.org") {
+    if (url.pathname.startsWith("/embed/")) {
+      return {
+        type: "embed",
+        embed: url.href
+      };
+    }
+
+    return {
+      type: "external",
+      embed: url.href
+    };
+  }
+
+  if (/\.(mp4|webm|ogg)(?:$)/i.test(url.pathname)) {
+    return {
+      type: "direct",
+      embed: url.href
+    };
+  }
+
+  if (url.pathname.includes("/embed/")) {
+    return {
+      type: "embed",
+      embed: url.href
+    };
+  }
+
+  return {
+    type: "external",
+    embed: url.href
+  };
 }
 
+function openModal(id) {
+  $(id).classList.add("show");
+}
+
+function closeModal(id) {
+  $(id).classList.remove("show");
+
+  if (id === "playerModal") {
+    $("playerContent").replaceChildren();
+  }
+}
+
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click", () => closeModal(button.dataset.close));
+});
+
+document.querySelectorAll(".modal").forEach(modal => {
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closeModal(modal.id);
+  });
+});
+
+$("addVideoBtn").addEventListener("click", () => openModal("addModal"));
+
+$("videoForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = $("videoTitle").value.trim();
+  const rawUrl = $("videoUrl").value.trim();
+  const info = videoInfo(rawUrl);
+  const thumbnail = $("videoThumbnail").value.trim();
+
+  if (!title || !info) {
+    alert("Please enter a valid HTTP or HTTPS video link.");
+    return;
+  }
+
+  if (thumbnail && !safeUrl(thumbnail)) {
+    alert("Please enter a valid thumbnail URL.");
+    return;
+  }
+
+  videos.unshift({
+    id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()),
+    title,
+    url: rawUrl,
+    category: $("videoCategory").value,
+    thumbnail,
+    createdAt: new Date().toISOString()
+  });
+
+  saveVideos();
+  renderVideos();
+  $("videoForm").reset();
+  closeModal("addModal");
+});
+
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text !== undefined) element.textContent = text;
+  return element;
+}
+
+function renderVideos() {
+  const grid = $("videoGrid");
+  grid.replaceChildren();
+
+  const search = $("searchInput").value.trim().toLowerCase();
+  const category = $("categoryFilter").value;
+
+  const filtered = videos.filter(video => {
+    const matchesSearch = video.title.toLowerCase().includes(search);
+    const matchesCategory = category === "all" || video.category === category;
+    return matchesSearch && matchesCategory;
+  });
+
+  if (!filtered.length) {
+    const empty = createElement(
+      "div",
+      "empty",
+      videos.length
+        ? "No videos match your search."
+        : "No videos yet. Click “+ Add Video” to add your first link."
+    );
+    grid.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach(video => {
+    const card = createElement("article", "video-card");
+    const thumbnail = createElement("div", "thumbnail");
+
+    if (video.thumbnail && safeUrl(video.thumbnail)) {
+      const img = document.createElement("img");
+      img.src = video.thumbnail;
+      img.alt = video.title;
+      img.loading = "lazy";
+      img.referrerPolicy = "no-referrer";
+      img.onerror = () => {
+        thumbnail.replaceChildren();
+        thumbnail.textContent = "V+";
+      };
+      thumbnail.appendChild(img);
+    } else {
+      thumbnail.textContent = "V+";
+    }
+
+    const details = createElement("div", "video-details");
+    details.appendChild(createElement("h3", "", video.title));
+    details.appendChild(createElement("p", "", video.category || "Other"));
+
+    const actions = createElement("div", "card-actions");
+
+    const playBtn = createElement("button", "primary", "Open Video");
+    playBtn.addEventListener("click", () => playVideo(video));
+
+    const deleteBtn = createElement("button", "secondary", "Delete");
+    deleteBtn.addEventListener("click", () => {
+      if (!confirm(`Delete "${video.title}"?`)) return;
+      videos = videos.filter(item => item.id !== video.id);
+      saveVideos();
+      renderVideos();
+    });
+
+    actions.append(playBtn, deleteBtn);
+    details.appendChild(actions);
+    card.append(thumbnail, details);
+    grid.appendChild(card);
+  });
+}
+
+function playVideo(video) {
+  const info = videoInfo(video.url);
+
+  if (!info) {
+    alert("This video URL is invalid.");
+    return;
+  }
+
+  $("playerTitle").textContent = video.title;
+  $("playerContent").replaceChildren();
+
+  if (info.type === "external") {
+    const message = createElement("div", "player-message");
+    message.appendChild(createElement("p", "", 
+      "This provider link needs to open on its original website."
+    ));
+
+    const openBtn = createElement("button", "primary", "Open Video Website");
+    openBtn.addEventListener("click", () => {
+      const opened = window.open(info.embed, "_blank", "noopener,noreferrer");
+      if (!opened) {
+        window.location.href = info.embed;
+      }
+    });
+
+    message.appendChild(openBtn);
+    $("playerContent").appendChild(message);
+    $("playerNote").textContent =
+      "Some providers do not permit playback inside other websites.";
+    openModal("playerModal");
+    return;
+  }
+
+  if (info.type === "direct") {
+    const videoElement = document.createElement("video");
+    videoElement.src = info.embed;
+    videoElement.controls = true;
+    videoElement.autoplay = true;
+    videoElement.playsInline = true;
+    videoElement.preload = "metadata";
+    $("playerContent").appendChild(videoElement);
+    $("playerNote").textContent = "Direct video playback.";
+    openModal("playerModal");
+    return;
+  }
+
+  const iframe = document.createElement("iframe");
+  iframe.src = info.embed;
+  iframe.title = video.title;
+  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+  iframe.allowFullscreen = true;
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
+
+  $("playerContent").appendChild(iframe);
+  $("playerNote").textContent =
+    "If playback is blocked, use the provider's official website.";
+  openModal("playerModal");
+}
+
+$("searchInput").addEventListener("input", renderVideos);
+$("categoryFilter").addEventListener("change", renderVideos);
+
+$("loginBtn").addEventListener("click", async () => {
+  try {
+    await signInWithPopup(auth, provider);
+  } catch (error) {
+    console.error(error);
+    alert("Google login failed: " + error.message);
+  }
+});
+
+$("logoutBtn").addEventListener("click", async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    alert("Logout failed: " + error.message);
+  }
+});
+
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+
+  $("loginBtn").classList.toggle("hidden", !!user);
+  $("logoutBtn").classList.toggle("hidden", !user);
+
+  $("loginStatus").textContent = user
+    ? `Signed in as ${user.displayName || user.email || "Google user"}. Videos are stored in this browser.`
+    : "You are browsing as a guest. Videos are stored in this browser.";
+
+  // This demo keeps videos in localStorage. Google login does not
+  // automatically sync them to other users or devices.
+});
+
+renderVideos();
 </script>
 
 </body>
